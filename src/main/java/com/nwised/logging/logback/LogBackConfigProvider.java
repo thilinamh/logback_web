@@ -1,6 +1,7 @@
 package com.nwised.logging.logback;
 
 import java.io.File;
+import java.io.InputStream;
 
 /**
  * Created by thilina_h on 2/7/2018.
@@ -8,15 +9,15 @@ import java.io.File;
 
 public interface LogBackConfigProvider {
 
- String getAppName();
+    String getAppName();
 
- String getLogbackConfigFileName();
+    InputStream getLogbackConfigFile();
 
- String getRootFolder();
+    String getRootFolder();
 
     default String getLogRoot() {
         String currentUsersHomeDir = System.getProperty("user.home");
-        return currentUsersHomeDir + File.separator + getRootFolder()+ File.separator +getAppName();
+        return currentUsersHomeDir + File.separator + getRootFolder() + File.separator + getAppName();
     }
 
 }

@@ -3,15 +3,13 @@ package com.nwised.logging.logback;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 import ch.qos.logback.core.util.StatusPrinter;
-import jdk.nashorn.internal.runtime.linker.Bootstrap;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
-import java.io.File;
-import java.util.Set;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,12 +37,29 @@ public class LogBackInitializer implements ServletContextListener {
         // Call context.reset() to clear any previous configuration, e.g. default
         // configuration. For multi-step configuration, omit calling context.reset().
         context.reset();
+//        if(logConfigProvider.getLogbackConfigFile()!=null)
+
+        try (InputStream configProvided = logConfigProvider.getLogbackConfigFile()) {
+            InputStream congigDefault = Thread.currentThread().getContextClassLoader().getResourceAsStream("logback_lazyload.xml");
+            InputStream temp_stream = (configProvided == null ? congigDefault : configProvided);
+            configManually(configurator, temp_stream);
+            if (temp_stream != null) {
+                temp_stream.close();
+            }
+        } catch (IOException e) {
+            Logger.getLogger(LogBackInitializer.class.getCanonicalName()).log(Level.WARNING,
+                    "Failed opening provided logback config file. Falling back to default");
+            configManually(configurator, serv_context.getResourceAsStream("logback_lazyload.xml"));
+        }
+        StatusPrinter.print(context);
+    }
+
+    private void configManually(JoranConfigurator configurator, InputStream logback_config) {
         try {
-            configurator.doConfigure(serv_context.getResourceAsStream("WEB-INF/classes/" + logConfigProvider.getLogbackConfigFileName()));
+            configurator.doConfigure(logback_config);
         } catch (JoranException e) {
             e.printStackTrace();
         }
-        StatusPrinter.print(context);
     }
 
 

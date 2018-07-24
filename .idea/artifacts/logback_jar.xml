@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact name="logback:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/logback_jar</output-path>
+    <root id="root">
+      <element id="archive" name="logback.jar">
+        <element id="module-output" name="logback_web" />
+      </element>
+      <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.3.0-alpha4" />
+      <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.0" />
+      <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.3.0-alpha4" />
+      <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+      <element id="library" level="project" name="Maven: org.fusesource.jansi:jansi:1.17" />
+      <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.8.0-beta1" />
+    </root>
+  </artifact>
+</component>

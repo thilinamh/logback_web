@@ -1,4 +1,4 @@
-    <configuration packagingData="true">
+<configuration packagingData="true">
     <!--<contextListener clacom.epic.utils.LogbackConfigProviderImplmplener"/>-->
     <!--<property name="LOG_HOME" value="C:/Users/thilina_h/EPIC" />-->
     <appender name="DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -38,14 +38,14 @@
     </appender>
 
 
-    <appender name="htmlAppender" class="ch.qos.logback.core.FileAppender">
-        <file>${log.home}/log.html</file>
-        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-            <layout class="ch.qos.logback.classic.html.HTMLLayout">
-                <pattern>%thread%level%logger[%X{uname}] %msg</pattern>
-            </layout>
-        </encoder>
-    </appender>
+    <!--<appender name="htmlAppender" class="ch.qos.logback.core.FileAppender">-->
+        <!--<file>${log.home}/log.html</file>-->
+        <!--<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">-->
+            <!--<layout class="ch.qos.logback.classic.html.HTMLLayout">-->
+                <!--<pattern>%thread%level%logger[%X{uname}] %msg</pattern>-->
+            <!--</layout>-->
+        <!--</encoder>-->
+    <!--</appender>-->
 
     <root level="DEBUG">
         <appender-ref ref="DEBUG_FILE"/>
